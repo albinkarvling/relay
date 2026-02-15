@@ -1,6 +1,7 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
 
 import { createWorkspace, getWorkspaces } from "../repositories/workspaceRepository.js";
+import { addMember } from "../repositories/memberRepository.js";
 
 export async function handleGetWorkspaces() {
 	return getWorkspaces();
@@ -16,14 +17,11 @@ export async function handleCreateWorkspace(
 	reply: FastifyReply,
 ) {
 	const { name } = request.body;
+	const userId = request.userId;
 
-	if (!name || !name?.trim()) {
-		return reply.status(400).send({
-			error: "Workspace name is required",
-		});
-	}
+	const workspace = await createWorkspace(name, userId);
 
-	const workspace = await createWorkspace(name);
+	await addMember(workspace.id, userId, "owner");
 
-	return reply.status(201).send(workspace);
+	return workspace;
 }
