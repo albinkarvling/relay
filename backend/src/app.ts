@@ -4,6 +4,7 @@ import { workspaceRoutes } from "./routes/workspaces.js";
 import { userRoutes } from "./routes/users.js";
 import { memberRoutes } from "./routes/members.js";
 import { channelRoutes } from "./routes/channels.js";
+import { messageRoutes } from "./routes/messages.js";
 
 export function buildApp() {
 	const app = Fastify({
@@ -20,6 +21,10 @@ export function buildApp() {
 
 	app.register(channelRoutes, {
 		prefix: "/workspaces/:workspaceId/channels",
+	});
+
+	app.register(messageRoutes, {
+		prefix: "/channels/:channelId/messages",
 	});
 
 	app.register(userRoutes, {
