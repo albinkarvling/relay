@@ -14,7 +14,7 @@ export const requireMember: preHandlerHookHandler = async (request, reply) => {
 
 	if (!member) {
 		reply.status(403).send({
-			error: "Unauthorized access",
+			message: "Unauthorized access",
 		});
 		return;
 	}

@@ -5,7 +5,7 @@ export const requireUser: preHandlerHookHandler = async (request, reply) => {
 
 	if (!cookie) {
 		reply.status(401).send({
-			error: "Not logged in",
+			message: "Not logged in",
 		});
 		return;
 	}
@@ -14,7 +14,7 @@ export const requireUser: preHandlerHookHandler = async (request, reply) => {
 
 	if (!valid) {
 		reply.status(401).send({
-			error: "Invalid cookie",
+			message: "Invalid cookie",
 		});
 		return;
 	}

@@ -21,7 +21,7 @@ export async function handleCreateMessage(
 
 	if (!content || content.trim() === "") {
 		reply.status(400).send({
-			error: "Message content is required",
+			message: "Message content is required",
 		});
 		return;
 	}

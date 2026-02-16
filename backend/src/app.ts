@@ -1,4 +1,5 @@
 import Fastify from "fastify";
+import cors from "@fastify/cors";
 import cookie from "@fastify/cookie";
 import { workspaceRoutes } from "./routes/workspaces.js";
 import { userRoutes } from "./routes/users.js";
@@ -9,6 +10,11 @@ import { messageRoutes } from "./routes/messages.js";
 export function buildApp() {
 	const app = Fastify({
 		logger: true,
+	});
+
+	app.register(cors, {
+		origin: process.env.FRONTEND_URL,
+		credentials: true,
 	});
 
 	app.register(cookie, {

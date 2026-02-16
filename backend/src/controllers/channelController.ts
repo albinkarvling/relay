@@ -20,7 +20,7 @@ export async function handleCreateChannel(
 
 	if (!name || name.trim() === "") {
 		reply.status(400).send({
-			error: "Channel name is required",
+			message: "Channel name is required",
 		});
 		return;
 	}

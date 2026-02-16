@@ -19,7 +19,7 @@ export const requireChannelMember: preHandlerHookHandler = async (request, reply
 
 	if (!workspaceId) {
 		reply.status(404).send({
-			error: "Channel not found",
+			message: "Channel not found",
 		});
 		return;
 	}
@@ -28,7 +28,7 @@ export const requireChannelMember: preHandlerHookHandler = async (request, reply
 
 	if (!member) {
 		reply.status(403).send({
-			error: "Unauthorized access",
+			message: "Unauthorized access",
 		});
 		return;
 	}

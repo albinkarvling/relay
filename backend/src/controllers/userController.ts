@@ -17,12 +17,12 @@ export async function registerUser(
 
 	if (!username || !username.trim()) {
 		return reply.status(400).send({
-			error: "Username is required",
+			message: "Username is required",
 		});
 	}
 	if (!password || password.length < 6) {
 		return reply.status(400).send({
-			error: "Password must be at least 6 characters",
+			message: "Password must be at least 6 characters",
 		});
 	}
 
@@ -30,7 +30,7 @@ export async function registerUser(
 
 	if (existing) {
 		return reply.status(400).send({
-			error: "Username already exists",
+			message: "Username already exists",
 		});
 	}
 
@@ -64,7 +64,7 @@ export async function loginUser(
 
 	if (!user) {
 		return reply.status(401).send({
-			error: "Invalid credentials",
+			message: "Invalid credentials",
 		});
 	}
 
@@ -72,7 +72,7 @@ export async function loginUser(
 
 	if (!valid) {
 		return reply.status(401).send({
-			error: "Invalid credentials",
+			message: "Invalid credentials",
 		});
 	}
 
@@ -97,7 +97,7 @@ export async function getCurrentUser(request: FastifyRequest, reply: FastifyRepl
 	console.log("FDSFDSFds");
 	if (!cookie) {
 		return reply.status(401).send({
-			error: "Not logged in",
+			message: "Not logged in",
 		});
 	}
 
@@ -105,7 +105,7 @@ export async function getCurrentUser(request: FastifyRequest, reply: FastifyRepl
 
 	if (!valid) {
 		return reply.status(401).send({
-			error: "Invalid cookie",
+			message: "Invalid cookie",
 		});
 	}
 
