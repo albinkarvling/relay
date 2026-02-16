@@ -5,19 +5,22 @@ export async function createMessage(channelId: string, userId: string, content: 
 	const id = randomUUID();
 
 	const rows = await sql`
-        INSERT INTO messages (
-            id,
-            channel_id,
-            user_id,
-            content
+        WITH inserted AS (
+            INSERT INTO messages (id, channel_id, user_id, content)
+            VALUES (${id}, ${channelId}, ${userId}, ${content})
+            RETURNING id, channel_id, user_id, content, created_at
         )
-        VALUES (
-            ${id},
-            ${channelId},
-            ${userId},
-            ${content}
-        )
-        RETURNING *
+        SELECT
+            i.id,
+            i.channel_id AS "channelId",
+            i.content,
+            i.created_at AS "createdAt",
+            json_build_object(
+                'id', u.id,
+                'username', u.username
+            ) AS author
+        FROM inserted i
+        JOIN users u ON u.id = i.user_id
     `;
 
 	return rows[0];
