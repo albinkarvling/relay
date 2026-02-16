@@ -1,3 +1,7 @@
+export type CreateMessagePayload = {
+	content: string;
+};
+
 export type Message = {
 	id: string;
 	channel_id: string;

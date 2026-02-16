@@ -1,5 +1,6 @@
 import { useGetChannelMessages } from "@/hooks/messages/useGetChannelMessages";
 import { useParams } from "react-router-dom";
+import { MessageInput } from "./MessageInput/MessageInput";
 
 export function WorkspacesPage() {
 	const { channelId } = useParams();
@@ -11,6 +12,7 @@ export function WorkspacesPage() {
 			{messages?.map((message) => (
 				<li>{message.content}</li>
 			))}
+			<MessageInput />
 		</ul>
 	);
 }
