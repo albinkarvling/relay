@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
-import { LoginPage } from "./components/Login/LoginPage";
-import { WorkspacesPage } from "./components/Workspaces/WorkspacesPage";
+import { LoginPage } from "./features/Login/LoginPage";
+import { ChannelsPage } from "./features/Channels/ChannelsPage";
 import { AppLayout } from "./layouts/AppLayout/AppLayout";
 
 export const router = createBrowserRouter([
@@ -14,7 +14,7 @@ export const router = createBrowserRouter([
 		children: [
 			{
 				path: "/workspaces/:workspaceId",
-				element: <WorkspacesPage />,
+				element: <ChannelsPage />,
 			},
 		],
 	},
@@ -24,7 +24,7 @@ export const router = createBrowserRouter([
 		children: [
 			{
 				path: "/workspaces/:workspaceId/channels/:channelId",
-				element: <WorkspacesPage />,
+				element: <ChannelsPage />,
 			},
 		],
 	},

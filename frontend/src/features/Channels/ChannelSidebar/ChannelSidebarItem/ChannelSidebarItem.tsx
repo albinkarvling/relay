@@ -1,5 +1,6 @@
 import type { Channel } from "@/types/channel";
 import { Link } from "react-router-dom";
+import { twMerge } from "tailwind-merge";
 
 type Props = {
 	isSelected: boolean;
@@ -8,10 +9,10 @@ type Props = {
 
 export function ChannelSidebarItem({ isSelected, channel: { id, name, workspace_id } }: Props) {
 	return (
-		<li>
+		<li className="w-full">
 			<Link
 				to={`/workspaces/${workspace_id}/channels/${id}`}
-				style={{ backgroundColor: !isSelected ? "transparent" : "#4b0096" }}
+				className={twMerge("p-2 block w-full rounded-md", isSelected && "bg-primary")}
 			>
 				{name}
 			</Link>

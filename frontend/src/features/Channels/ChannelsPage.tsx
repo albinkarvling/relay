@@ -7,8 +7,9 @@ import { MessageInput } from "./MessageInput/MessageInput";
 import { useEffect } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import type { Message } from "@/types/message";
+import { ChannelSidebar } from "./ChannelSidebar/ChannelSidebar";
 
-export function WorkspacesPage() {
+export function ChannelsPage() {
 	const { channelId } = useParams();
 
 	const queryClient = useQueryClient();
@@ -34,28 +35,31 @@ export function WorkspacesPage() {
 	}, [queryClient, channelId]);
 
 	return (
-		<ul>
-			{messages?.map((message) => (
-				<li key={message.id} style={{ display: "flex", alignItems: "start" }}>
-					<div
-						style={{
-							display: "grid",
-							placeItems: "center",
-							width: "42px",
-							aspectRatio: 1,
-							borderRadius: "50%",
-							backgroundColor: "#242424",
-						}}
-					>
-						{message.author.username.slice(0, 1).toUpperCase()}
-					</div>
-					<div style={{ display: "grid" }}>
-						<span>{message.author.username}</span>
-						<span>{message.content}</span>
-					</div>
-				</li>
-			))}
-			<MessageInput />
-		</ul>
+		<main style={{ display: "flex", height: "100%" }}>
+			<ChannelSidebar />
+			<ul>
+				{messages?.map((message) => (
+					<li key={message.id} style={{ display: "flex", alignItems: "start" }}>
+						<div
+							style={{
+								display: "grid",
+								placeItems: "center",
+								width: "42px",
+								aspectRatio: 1,
+								borderRadius: "50%",
+								backgroundColor: "#242424",
+							}}
+						>
+							{message.author.username.slice(0, 1).toUpperCase()}
+						</div>
+						<div style={{ display: "grid" }}>
+							<span>{message.author.username}</span>
+							<span>{message.content}</span>
+						</div>
+					</li>
+				))}
+				<MessageInput />
+			</ul>
+		</main>
 	);
 }
