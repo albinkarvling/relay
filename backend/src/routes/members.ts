@@ -6,11 +6,15 @@ import {
 	logoutUser,
 } from "../controllers/userController.js";
 import { requireUser } from "../plugins/requireUser.js";
-import { handleGetMembers } from "../controllers/memberController.js";
+import { handleAddMember, handleGetMembers } from "../controllers/memberController.js";
 import { requireMember } from "../plugins/requireMember.js";
 
 type WorkspaceParams = {
 	workspaceId: string;
+};
+type AddMemberParams = {
+	workspaceId: string;
+	userId: string;
 };
 
 export async function memberRoutes(app: FastifyInstance) {
@@ -20,5 +24,13 @@ export async function memberRoutes(app: FastifyInstance) {
 			preHandler: [requireUser, requireMember],
 		},
 		handleGetMembers,
+	);
+
+	app.put<{ Params: AddMemberParams }>(
+		"/:userId",
+		{
+			preHandler: [requireUser, requireMember],
+		},
+		handleAddMember,
 	);
 }

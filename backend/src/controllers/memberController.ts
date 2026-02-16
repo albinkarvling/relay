@@ -1,13 +1,21 @@
-import type { FastifyRequest, FastifyReply } from "fastify";
-import { getMembers } from "../repositories/memberRepository.js";
+import type { FastifyRequest } from "fastify";
+import { getMembers, addMember } from "../repositories/memberRepository.js";
 
 export async function handleGetMembers(
 	request: FastifyRequest<{
 		Params: { workspaceId: string };
 	}>,
-	reply: FastifyReply,
 ) {
 	const { workspaceId } = request.params;
 
 	return getMembers(workspaceId);
+}
+
+export async function handleAddMember(
+	request: FastifyRequest<{
+		Params: { workspaceId: string; userId: string };
+	}>,
+) {
+	const { workspaceId, userId } = request.params;
+	return addMember(workspaceId, userId, "member");
 }
