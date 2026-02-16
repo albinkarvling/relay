@@ -3,8 +3,8 @@ import type { FastifyReply, FastifyRequest } from "fastify";
 import { createWorkspace, getWorkspaces } from "../repositories/workspaceRepository.js";
 import { addMember } from "../repositories/memberRepository.js";
 
-export async function handleGetWorkspaces() {
-	return getWorkspaces();
+export async function handleGetWorkspaces(request: FastifyRequest) {
+	return getWorkspaces(request.userId);
 }
 
 type CreateWorkspaceBody = {

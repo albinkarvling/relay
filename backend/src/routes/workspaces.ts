@@ -4,7 +4,7 @@ import { requireUser } from "../plugins/requireUser.js";
 import { CreateWorkspaceBody } from "../types/workspace.js";
 
 export async function workspaceRoutes(app: FastifyInstance) {
-	app.get("/", handleGetWorkspaces);
+	app.get("/", { preHandler: requireUser }, handleGetWorkspaces);
 
 	app.post<{ Body: CreateWorkspaceBody }>(
 		"/",

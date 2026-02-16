@@ -14,14 +14,14 @@ export async function createWorkspace(name: string, ownerId: string) {
 	return rows[0];
 }
 
-export async function getWorkspaces(): Promise<Workspace[]> {
+export async function getWorkspaces(userId: string): Promise<Workspace[]> {
 	const rows = await sql`
-        SELECT id, name, created_at, owner_id
-        FROM workspaces
-        ORDER BY created_at DESC
-    `;
-
-	console.log(rows);
+		SELECT w.*
+		FROM workspaces w
+		JOIN members m
+			ON m.workspace_id = w.id
+		WHERE m.user_id = ${userId}
+	`;
 
 	return rows.map((row) => ({
 		id: row.id,
