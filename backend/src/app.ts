@@ -1,11 +1,13 @@
 import Fastify from "fastify";
 import cors from "@fastify/cors";
 import cookie from "@fastify/cookie";
+import websocket from "@fastify/websocket";
 import { workspaceRoutes } from "./routes/workspaces.js";
 import { userRoutes } from "./routes/users.js";
 import { memberRoutes } from "./routes/members.js";
 import { channelRoutes } from "./routes/channels.js";
 import { messageRoutes } from "./routes/messages.js";
+import { websocketRoutes } from "./routes/ws.js";
 
 export function buildApp() {
 	const app = Fastify({
@@ -20,6 +22,8 @@ export function buildApp() {
 	app.register(cookie, {
 		secret: process.env.COOKIE_SECRET!,
 	});
+
+	app.register(websocket);
 
 	app.register(workspaceRoutes, {
 		prefix: "/workspaces",
@@ -40,6 +44,8 @@ export function buildApp() {
 	app.register(memberRoutes, {
 		prefix: "/workspaces/:workspaceId/members",
 	});
+
+	app.register(websocketRoutes);
 
 	return app;
 }

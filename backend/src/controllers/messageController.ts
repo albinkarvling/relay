@@ -3,6 +3,7 @@ import type { FastifyReply, FastifyRequest } from "fastify";
 import { createMessage, getMessages } from "../repositories/messageRepository.js";
 
 import type { CreateMessageBody } from "../types/message.js";
+import { broadcastToChannel } from "../lib/websocketManager.js";
 
 type MessageParams = {
 	channelId: string;
@@ -29,6 +30,11 @@ export async function handleCreateMessage(
 	const userId = request.userId;
 
 	const message = await createMessage(channelId, userId, content);
+
+	broadcastToChannel(channelId, {
+		type: "message.created",
+		payload: message,
+	});
 
 	return message;
 }

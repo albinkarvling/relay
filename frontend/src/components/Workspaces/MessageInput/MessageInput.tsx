@@ -26,7 +26,11 @@ export function MessageInput() {
 
 	return (
 		<form onSubmit={handleSubmit}>
-			<input placeholder="Send message" onChange={(e) => setContent(e.target.value)} />
+			<input
+				placeholder="Send message"
+				onChange={(e) => setContent(e.target.value)}
+				value={content}
+			/>
 			<button type="submit">Send</button>
 		</form>
 	);
