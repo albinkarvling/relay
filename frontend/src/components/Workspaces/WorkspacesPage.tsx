@@ -36,7 +36,24 @@ export function WorkspacesPage() {
 	return (
 		<ul>
 			{messages?.map((message) => (
-				<li key={message.id}>{message.content}</li>
+				<li key={message.id} style={{ display: "flex", alignItems: "start" }}>
+					<div
+						style={{
+							display: "grid",
+							placeItems: "center",
+							width: "42px",
+							aspectRatio: 1,
+							borderRadius: "50%",
+							backgroundColor: "#242424",
+						}}
+					>
+						{message.author.username.slice(0, 1).toUpperCase()}
+					</div>
+					<div style={{ display: "grid" }}>
+						<span>{message.author.username}</span>
+						<span>{message.content}</span>
+					</div>
+				</li>
 			))}
 			<MessageInput />
 		</ul>
