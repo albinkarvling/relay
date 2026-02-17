@@ -1,16 +1,21 @@
-import { usePreviousRoutes } from "@/contexts/PreviousRoutesProvider/PreviousNavigationProvider";
-import { Link } from "react-router-dom";
+import { useNavigationMemory } from "@/contexts/NavigationMemoryProvider/NavigationMemoryProvider";
+import { Link, useParams } from "react-router-dom";
 
 export function WorkspaceSidebarViewSelector() {
-	const {} = usePreviousRoutes();
+	const { workspaceId } = useParams();
+	const { getLastChannelId, getLastBoardId } = useNavigationMemory();
 
 	return (
 		<ul>
 			<li>
-				<Link to={}>Channels</Link>
+				<Link to={`/workspaces/${workspaceId}/channels/${getLastChannelId(workspaceId)}`}>
+					Channels
+				</Link>
 			</li>
 			<li>
-				<Link>Boards</Link>
+				<Link to={`/workspaces/${workspaceId}/boards/${getLastBoardId(workspaceId)}`}>
+					Boards
+				</Link>
 			</li>
 		</ul>
 	);

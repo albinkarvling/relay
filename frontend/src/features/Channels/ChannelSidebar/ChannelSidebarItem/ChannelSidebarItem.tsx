@@ -12,7 +12,11 @@ export function ChannelSidebarItem({ isSelected, channel: { id, name, workspace_
 		<li className="w-full">
 			<Link
 				to={`/workspaces/${workspace_id}/channels/${id}`}
-				className={twMerge("p-2 block w-full rounded-md", isSelected && "bg-primary")}
+				className={twMerge(
+					"relative p-2 block w-full rounded-md",
+					isSelected && "bg-primary",
+					!isSelected && "hover:bg-primary-accent",
+				)}
 			>
 				{name}
 			</Link>

@@ -3,6 +3,7 @@ import { LoginPage } from "./features/Login/LoginPage";
 import { ChannelsPage } from "./features/Channels/ChannelsPage";
 import { AppLayout } from "./layouts/AppLayout/AppLayout";
 import { MainProvider } from "./contexts/MainProvider";
+import { BoardsPage } from "./features/Boards/BoardsPage";
 
 export const router = createBrowserRouter([
 	{
@@ -33,6 +34,24 @@ export const router = createBrowserRouter([
 					{
 						path: "channels/:channelId",
 						element: <ChannelsPage />,
+					},
+				],
+			},
+			{
+				path: "/workspaces/:workspaceId",
+				element: <AppLayout />,
+				children: [
+					{
+						index: true,
+						element: <BoardsPage />,
+					},
+					{
+						path: "boards",
+						element: <BoardsPage />,
+					},
+					{
+						path: "boards/:boardId",
+						element: <BoardsPage />,
 					},
 				],
 			},

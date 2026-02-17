@@ -10,8 +10,8 @@ type WorkspaceMemory = {
 };
 
 type ContextType = {
-	getLastChannelId: (workspaceId: string) => string | null;
-	getLastBoardId: (workspaceId: string) => string | null;
+	getLastChannelId: (workspaceId?: string) => string | null;
+	getLastBoardId: (workspaceId?: string) => string | null;
 };
 
 const WorkspaceNavigationMemoryContext = createContext<ContextType | null>(null);
