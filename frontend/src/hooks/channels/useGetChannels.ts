@@ -2,7 +2,7 @@ import { getChannels } from "@/api/channels/getChannels";
 import type { Channel } from "@/types/channel";
 import { useQuery, type UseQueryOptions } from "@tanstack/react-query";
 
-export const useGetChannelsQueryOptions = (
+export const getChannelsQueryOptions = (
 	workspaceId: string,
 ): UseQueryOptions<Channel[], Error> => ({
 	queryKey: ["getChannels", workspaceId],
@@ -10,4 +10,4 @@ export const useGetChannelsQueryOptions = (
 });
 
 export const useGetChannels = (workspaceId: string) =>
-	useQuery(useGetChannelsQueryOptions(workspaceId));
+	useQuery(getChannelsQueryOptions(workspaceId));

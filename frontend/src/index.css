@@ -4,6 +4,7 @@
 	--color-primary: #5a0070;
 	--color-primary-accent: #5a007070;
 	--color-secondary: #4a005c;
+	--color-foreground: #16171a;
 }
 
 :root {
@@ -19,6 +20,8 @@
 	-moz-osx-font-smoothing: grayscale;
 
 	--sidebar-width: 260px;
+	--modal-width: 450px;
+	--modal-max-height: 700px;
 }
 
 a {

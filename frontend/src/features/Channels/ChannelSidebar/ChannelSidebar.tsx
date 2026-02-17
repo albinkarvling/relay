@@ -2,6 +2,7 @@ import { useGetChannels } from "@/hooks/channels/useGetChannels";
 import { ChannelSidebarItem } from "./ChannelSidebarItem/ChannelSidebarItem";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
+import { CreateChannelButton } from "./CreateChannelButton/CreateChannelButton";
 
 export function ChannelSidebar() {
 	const navigate = useNavigate();
@@ -18,14 +19,17 @@ export function ChannelSidebar() {
 	}, [navigate, workspaceId, channelId, channels]);
 
 	return (
-		<ul className="min-w-(--sidebar-width) p-4 bg-secondary">
-			{channels?.map((channel) => (
-				<ChannelSidebarItem
-					key={channel.id}
-					channel={channel}
-					isSelected={channel.id === channelId}
-				/>
-			))}
-		</ul>
+		<nav className="min-w-(--sidebar-width) p-4 bg-secondary">
+			<ul>
+				{channels?.map((channel) => (
+					<ChannelSidebarItem
+						key={channel.id}
+						channel={channel}
+						isSelected={channel.id === channelId}
+					/>
+				))}
+			</ul>
+			<CreateChannelButton />
+		</nav>
 	);
 }
