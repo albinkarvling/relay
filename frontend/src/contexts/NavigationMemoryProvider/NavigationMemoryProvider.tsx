@@ -4,14 +4,14 @@ import { useParams } from "react-router-dom";
 
 type WorkspaceMemory = {
 	/** Key is workspaceId of the channel */
-	lastChannelId: Record<string, string | null>;
+	lastChannelId: Record<string, string>;
 	/** Key is workspaceId of the board */
-	lastBoardId: Record<string, string | null>;
+	lastBoardId: Record<string, string>;
 };
 
 type ContextType = {
-	getLastChannelId: (workspaceId?: string) => string | null;
-	getLastBoardId: (workspaceId?: string) => string | null;
+	getLastChannelId: (workspaceId?: string) => string;
+	getLastBoardId: (workspaceId?: string) => string;
 };
 
 const WorkspaceNavigationMemoryContext = createContext<ContextType | null>(null);
@@ -62,11 +62,13 @@ export function NavigationMemoryProvider({ children }: { children: React.ReactNo
 		setPreviousRoutes(updatedRoutes);
 	}, [workspaceId, channelId, boardId]);
 
-	const getLastChannelId = (workspaceId: string) => {
-		return previousRoutes.lastChannelId[workspaceId] ?? null;
+	const getLastChannelId = (workspaceId?: string) => {
+		if (!workspaceId) return "";
+		return previousRoutes.lastChannelId[workspaceId] ?? "";
 	};
-	const getLastBoardId = (workspaceId: string) => {
-		return previousRoutes.lastBoardId[workspaceId] ?? null;
+	const getLastBoardId = (workspaceId?: string) => {
+		if (!workspaceId) return "";
+		return previousRoutes.lastBoardId[workspaceId] ?? "";
 	};
 
 	const value = {

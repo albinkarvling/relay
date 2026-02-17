@@ -2,9 +2,9 @@ import { BoardSidebar } from "./BoardSidebar/BoardSidebar";
 
 export function BoardsPage() {
 	return (
-		<main>
+		<main style={{ display: "flex", height: "100%" }}>
 			<BoardSidebar />
-			board sidebar
+			board content
 		</main>
 	);
 }
