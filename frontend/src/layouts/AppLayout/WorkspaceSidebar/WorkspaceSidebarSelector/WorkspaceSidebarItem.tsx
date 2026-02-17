@@ -1,10 +1,14 @@
+import { useNavigationMemory } from "@/contexts/NavigationMemoryProvider/NavigationMemoryProvider";
 import { useGetWorkspaces } from "@/hooks/workspaces/useGetWorkspaces";
 import { useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { twMerge } from "tailwind-merge";
 
 export function WorkspaceSidebarSelector() {
 	const navigate = useNavigate();
 	const { workspaceId } = useParams();
+
+	const { getLastChannelId } = useNavigationMemory();
 
 	const { data: workspaces, isPending } = useGetWorkspaces();
 
@@ -18,6 +22,7 @@ export function WorkspaceSidebarSelector() {
 	return (
 		<ul>
 			{workspaces?.map(({ id, name }) => {
+				const lastChannelId = getLastChannelId(id);
 				const isSelected = id === workspaceId;
 				const displayName = name
 					.split(" ")
@@ -27,8 +32,11 @@ export function WorkspaceSidebarSelector() {
 				return (
 					<li>
 						<Link
-							to={`/workspaces/${id}`}
-							className="w-12 aspect-square grid place-items-center"
+							to={`/workspaces/${id}/channels/${lastChannelId ?? ""}`}
+							className={twMerge(
+								"w-12 aspect-square grid place-items-center",
+								isSelected ? "bg-secondary" : "transform",
+							)}
 						>
 							<span>{displayName}</span>
 						</Link>

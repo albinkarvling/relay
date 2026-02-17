@@ -18,7 +18,7 @@ export function ChannelSidebar() {
 	}, [navigate, workspaceId, channelId, channels]);
 
 	return (
-		<ul className="min-w-[var(--sidebar-width)] p-4 bg-secondary">
+		<ul className="min-w-(--sidebar-width) p-4 bg-secondary">
 			{channels?.map((channel) => (
 				<ChannelSidebarItem
 					key={channel.id}
