@@ -3,6 +3,7 @@ import { RealtimeEvent } from "../../types/realtime.js";
 
 export const userConnections = new Map<string, Set<WebSocket>>();
 
+const workspaceSubscriptions = new Map<string, Set<WebSocket>>();
 export const channelSubscriptions = new Map<string, Set<WebSocket>>();
 
 export function addUserConnection(userId: string, socket: WebSocket) {
@@ -14,6 +15,24 @@ export function addUserConnection(userId: string, socket: WebSocket) {
 
 	socket.on("close", () => {
 		userConnections.get(userId)?.delete(socket);
+	});
+}
+
+export function subscribeSocketToWorkspace(workspaceId: string, socket: WebSocket) {
+	if (!workspaceSubscriptions.has(workspaceId)) {
+		workspaceSubscriptions.set(workspaceId, new Set());
+	}
+
+	const sockets = workspaceSubscriptions.get(workspaceId)!;
+
+	sockets.add(socket);
+
+	socket.on("close", () => {
+		sockets.delete(socket);
+
+		if (sockets.size === 0) {
+			workspaceSubscriptions.delete(workspaceId);
+		}
 	});
 }
 
@@ -32,5 +51,17 @@ export function broadcastToChannel(channelId: string, event: RealtimeEvent) {
 
 	for (const socket of sockets) {
 		socket.send(JSON.stringify(event));
+	}
+}
+
+export function broadcastToWorkspace(workspaceId: string, event: RealtimeEvent) {
+	const sockets = workspaceSubscriptions.get(workspaceId);
+
+	if (!sockets) return;
+
+	const payload = JSON.stringify(event);
+
+	for (const socket of sockets) {
+		socket.send(payload);
 	}
 }

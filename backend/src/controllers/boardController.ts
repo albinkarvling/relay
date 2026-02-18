@@ -1,6 +1,7 @@
 import type { FastifyRequest, FastifyReply } from "fastify";
 
 import { getBoards, createBoard } from "../repositories/boardRepository.js";
+import { emitBoardCreated } from "../realtime/events/boardEvents.js";
 
 type WorkspaceParams = {
 	workspaceId: string;
@@ -38,6 +39,8 @@ export async function handleCreateBoard(
 	}
 
 	const board = await createBoard(workspaceId, request.userId, name);
+
+	emitBoardCreated(board);
 
 	return board;
 }

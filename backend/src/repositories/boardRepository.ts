@@ -1,5 +1,6 @@
 import { randomUUID } from "crypto";
 import { sql } from "../lib/db.js";
+import { Board } from "../types/board.js";
 
 export async function getBoards(workspaceId: string) {
 	return sql`
@@ -39,5 +40,10 @@ export async function createBoard(workspaceId: string, userId: string, name: str
             created_at AS "createdAt"
     `;
 
-	return rows[0];
+	const board = rows[0];
+	if (!board) {
+		throw new Error("Failed to create board");
+	}
+
+	return board as Board;
 }
