@@ -1,6 +1,6 @@
-import { Board } from "./board.js";
-import { Column } from "./column.js";
-import type { Message } from "./message.js";
+import { Board } from "@/features/boards/boardTypes.js";
+import { Column } from "@/features/columns/columnTypes.js";
+import { Message } from "@/features/messages/messageTypes.js";
 
 // subscription events
 export type ChannelSubscribedEvent = {

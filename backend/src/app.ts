@@ -2,14 +2,14 @@ import Fastify from "fastify";
 import cors from "@fastify/cors";
 import cookie from "@fastify/cookie";
 import websocket from "@fastify/websocket";
-import { workspaceRoutes } from "./routes/workspaces.js";
-import { userRoutes } from "./routes/users.js";
-import { memberRoutes } from "./routes/members.js";
-import { channelRoutes } from "./routes/channels.js";
-import { messageRoutes } from "./routes/messages.js";
-import { websocketRoutes } from "./routes/ws.js";
-import { boardRoutes } from "./routes/boards.js";
-import { columnRoutes } from "./routes/columns.js";
+import { websocketRoutes } from "./lib/websocket/websocketRoutes.js";
+import { boardRoutes } from "./features/boards/boardRoutes.js";
+import { workspaceRoutes } from "./features/workspaces/workspaceRoutes.js";
+import { channelRoutes } from "./features/channels/channelRoutes.js";
+import { messageRoutes } from "./features/messages/messageRoutes.js";
+import { userRoutes } from "./features/users/userRoutes.js";
+import { memberRoutes } from "./features/members/memberRoutes.js";
+import { columnRoutes } from "./features/columns/columnRoutes.js";
 
 export function buildApp() {
 	const app = Fastify({

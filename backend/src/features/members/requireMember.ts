@@ -1,0 +1,21 @@
+import { isMember } from "@/features/members/memberRepository.js";
+import type { preHandlerHookHandler } from "fastify";
+
+type WorkspaceParams = {
+	workspaceId: string;
+};
+
+export const requireMember: preHandlerHookHandler = async (request, reply) => {
+	const { workspaceId } = request.params as WorkspaceParams;
+
+	const userId = request.userId;
+
+	const member = await isMember(workspaceId, userId);
+
+	if (!member) {
+		reply.status(403).send({
+			message: "Unauthorized access",
+		});
+		return;
+	}
+};
