@@ -1,34 +1,28 @@
-import { getUserIdFromWebSocket } from "../lib/websocketAuth.js";
-import { canAccessChannel } from "../lib/channelAuth.js";
-import { addConnection } from "../lib/websocketManager.js";
 import { FastifyInstance } from "fastify";
-
-type ChannelParams = {
-	channelId: string;
-};
+import { getUserIdFromWebSocket } from "../lib/websocket/websocketAuth.js";
+import { addUserConnection } from "../lib/websocket/websocketManager.js";
+import { subscribeToChannel } from "../realtime/subscriptions/subscribeToChannel.js";
 
 export async function websocketRoutes(app: FastifyInstance) {
-	app.get<{ Params: ChannelParams }>(
-		"/ws/channels/:channelId",
-		{ websocket: true },
-		async (socket, request) => {
-			const userId = getUserIdFromWebSocket(request);
+	app.get("/ws", { websocket: true }, async (socket, request) => {
+		const userId = getUserIdFromWebSocket(request);
 
-			if (!userId) {
-				socket.close(1008);
-				return;
+		if (!userId) {
+			socket.close(1008);
+			return;
+		}
+
+		addUserConnection(userId, socket);
+
+		socket.on("message", async (raw: any) => {
+			const msg = JSON.parse(raw.toString());
+
+			console.log("DSFFDSFDSFDSFDSFDSFDS message receieved", msg);
+			switch (msg.type) {
+				case "subscribe.channel":
+					await subscribeToChannel(userId, msg.channelId, socket);
+					break;
 			}
-
-			const { channelId } = request.params;
-
-			const allowed = await canAccessChannel(userId, channelId);
-
-			if (!allowed) {
-				socket.close(1008);
-				return;
-			}
-
-			addConnection(channelId, socket);
-		},
-	);
+		});
+	});
 }

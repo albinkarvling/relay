@@ -1,59 +1,49 @@
-import { createBrowserRouter, Outlet } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import { LoginPage } from "./features/Login/LoginPage";
-import { ChannelsPage } from "./features/Channels/ChannelsPage";
+import { ChannelView } from "./features/Channels/ChannelView";
 import { AppLayout } from "./layouts/AppLayout/AppLayout";
-import { MainProvider } from "./contexts/MainProvider";
 import { BoardsPage } from "./features/Boards/BoardsPage";
 
 export const router = createBrowserRouter([
 	{
-		element: (
-			<MainProvider>
-				<Outlet />
-			</MainProvider>
-		),
+		path: "/login",
+		element: <LoginPage />,
+	},
+	{
+		path: "/workspaces/:workspaceId",
+		element: <AppLayout />,
 		children: [
 			{
-				path: "/login",
-				element: <LoginPage />,
+				index: true,
+				element: <ChannelView />,
+			},
+
+			{
+				path: "channels",
+				element: <ChannelView />,
+			},
+
+			{
+				path: "channels/:channelId",
+				element: <ChannelView />,
+			},
+		],
+	},
+	{
+		path: "/workspaces/:workspaceId",
+		element: <AppLayout />,
+		children: [
+			{
+				index: true,
+				element: <BoardsPage />,
 			},
 			{
-				path: "/workspaces/:workspaceId",
-				element: <AppLayout />,
-				children: [
-					{
-						index: true,
-						element: <ChannelsPage />,
-					},
-
-					{
-						path: "channels",
-						element: <ChannelsPage />,
-					},
-
-					{
-						path: "channels/:channelId",
-						element: <ChannelsPage />,
-					},
-				],
+				path: "boards",
+				element: <BoardsPage />,
 			},
 			{
-				path: "/workspaces/:workspaceId",
-				element: <AppLayout />,
-				children: [
-					{
-						index: true,
-						element: <BoardsPage />,
-					},
-					{
-						path: "boards",
-						element: <BoardsPage />,
-					},
-					{
-						path: "boards/:boardId",
-						element: <BoardsPage />,
-					},
-				],
+				path: "boards/:boardId",
+				element: <BoardsPage />,
 			},
 		],
 	},

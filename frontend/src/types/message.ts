@@ -7,6 +7,7 @@ export type CreateMessagePayload = {
 export type Message = {
 	id: string;
 	content: string;
+	channelId: string;
 	createdAt: string;
 	author: User;
 };

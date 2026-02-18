@@ -94,7 +94,6 @@ export async function loginUser(
 export async function getCurrentUser(request: FastifyRequest, reply: FastifyReply) {
 	const cookie = request.cookies.userId;
 
-	console.log("FDSFDSFds");
 	if (!cookie) {
 		return reply.status(401).send({
 			message: "Not logged in",

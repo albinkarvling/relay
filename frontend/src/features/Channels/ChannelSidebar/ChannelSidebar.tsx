@@ -9,7 +9,7 @@ export function ChannelSidebar() {
 
 	const { workspaceId, channelId } = useParams();
 
-	const { data: channels, isPending } = useGetChannels(workspaceId!);
+	const { data: channels, isPending } = useGetChannels(workspaceId);
 
 	useEffect(() => {
 		if (channelId) return;

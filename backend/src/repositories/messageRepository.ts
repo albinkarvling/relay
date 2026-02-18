@@ -1,5 +1,6 @@
 import { randomUUID } from "crypto";
 import { sql } from "../lib/db.js";
+import { Message } from "../types/message.js";
 
 export async function createMessage(channelId: string, userId: string, content: string) {
 	const id = randomUUID();
@@ -23,7 +24,12 @@ export async function createMessage(channelId: string, userId: string, content: 
         JOIN users u ON u.id = i.user_id
     `;
 
-	return rows[0];
+	const message = rows[0];
+	if (!message) {
+		throw new Error("Failed to create message");
+	}
+
+	return message as Message;
 }
 
 export async function getMessages(channelId: string) {
