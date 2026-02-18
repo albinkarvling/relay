@@ -17,9 +17,9 @@ export function ChannelMessages() {
 	return (
 		<div ref={containerRef} className="p-5 flex-1 min-h-0 overflow-y-auto">
 			<ul className="flex flex-col justify-end min-h-full">
-				{messages?.map((message) => (
+				{messages?.map((message, index) => (
 					<li className="w-full" key={message.id}>
-						<ChannelMessage message={message} />
+						<ChannelMessage message={message} previousMessage={messages[index - 1]} />
 					</li>
 				))}
 			</ul>

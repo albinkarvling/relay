@@ -7,8 +7,8 @@
 	--color-foreground: #16171a;
 	--color-foreground-secondary: #212226;
 	--color-foreground-tertiary: #2b2c30;
-	--text-primary: #fff;
-	--text-secondary: #c1c1c1;
+	--color-text-primary: #fff;
+	--color-text-secondary: #adadad;
 }
 
 :root {
@@ -35,7 +35,7 @@ a {
 
 body {
 	margin: 0;
-	color: var(--text-primary);
+	color: var(--text-text-primary);
 }
 
 ul {
