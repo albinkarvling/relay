@@ -1,7 +1,8 @@
+import { useEffect } from "react";
 import { useGetBoards } from "@/hooks/boards/useGetBoards";
 import { BoardSidebarItem } from "./BoardSidebarItem/BoardSidebarItem";
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { CreateBoardButton } from "./CreateBoardButton/CreateBoardButton";
 
 export function BoardSidebar() {
 	const navigate = useNavigate();
@@ -18,10 +19,17 @@ export function BoardSidebar() {
 	}, [navigate, workspaceId, boardId, boards]);
 
 	return (
-		<ul className="min-w-(--sidebar-width) p-4 bg-secondary">
-			{boards?.map((board) => (
-				<BoardSidebarItem key={board.id} board={board} isSelected={board.id === boardId} />
-			))}
-		</ul>
+		<nav className="min-w-(--sidebar-width) p-4 bg-secondary">
+			<ul>
+				{boards?.map((board) => (
+					<BoardSidebarItem
+						key={board.id}
+						board={board}
+						isSelected={board.id === boardId}
+					/>
+				))}
+			</ul>
+			<CreateBoardButton />
+		</nav>
 	);
 }
