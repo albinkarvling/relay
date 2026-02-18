@@ -9,6 +9,7 @@ import { channelRoutes } from "./routes/channels.js";
 import { messageRoutes } from "./routes/messages.js";
 import { websocketRoutes } from "./routes/ws.js";
 import { boardRoutes } from "./routes/boards.js";
+import { columnRoutes } from "./routes/columns.js";
 
 export function buildApp() {
 	const app = Fastify({
@@ -48,6 +49,10 @@ export function buildApp() {
 
 	app.register(boardRoutes, {
 		prefix: "/workspaces/:workspaceId/boards",
+	});
+
+	app.register(columnRoutes, {
+		prefix: "/boards/:boardId/columns",
 	});
 
 	app.register(websocketRoutes);
