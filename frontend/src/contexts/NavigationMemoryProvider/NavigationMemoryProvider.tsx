@@ -39,11 +39,13 @@ export function NavigationMemoryProvider({ children }: { children: React.ReactNo
 		lastChannelId: {},
 	});
 
+	console.log(channelId);
 	useEffect(() => {
 		if (!workspaceId) return;
 
 		const updatedRoutes = { ...previousRoutesRef.current };
 
+		console.log(channelId);
 		if (channelId && channelId !== updatedRoutes.lastChannelId[workspaceId]) {
 			updatedRoutes.lastChannelId = {
 				...updatedRoutes.lastChannelId,
