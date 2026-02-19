@@ -2,6 +2,45 @@ import { randomUUID } from "crypto";
 import { sql } from "@/lib/db.js";
 import { Board } from "./boardTypes.js";
 
+export async function getBoardLayout(boardId: string) {
+	const rows = await sql`
+        SELECT 
+            b.id,
+            b.name,
+            (
+                SELECT COALESCE(json_agg(column_data), '[]')
+                FROM (
+                    SELECT 
+                        c.id,
+                        c.name,
+                        c.position,
+                        c.board_id AS "boardId",
+                        (
+                            SELECT COALESCE(json_agg(task_data), '[]')
+                            FROM (
+                                SELECT 
+                                    t.id,
+                                    t.title,
+                                    t.description,
+                                    t.position,
+                                    t.created_at AS "createdAt"
+                                FROM tasks t
+                                WHERE t.column_id = c.id
+                                ORDER BY t.position ASC
+                            ) task_data
+                        ) AS tasks
+                    FROM columns c
+                    WHERE c.board_id = b.id
+                    ORDER BY c.position ASC
+                ) column_data
+            ) AS columns
+        FROM boards b
+        WHERE b.id = ${boardId};
+    `;
+
+	return rows[0];
+}
+
 export async function getBoards(workspaceId: string) {
 	return sql`
         SELECT

@@ -1,11 +1,12 @@
 import { useGetTasks } from "@/hooks/tasks/useGetTasks";
 
 type Props = {
+	boardId: string;
 	columnId: string;
 };
 
-export function ColumnTasks({ columnId }: Props) {
-	const { data: tasks } = useGetTasks(columnId);
+export function ColumnTasks({ boardId, columnId }: Props) {
+	const { data: tasks } = useGetTasks(boardId, columnId);
 
 	return (
 		<ul>

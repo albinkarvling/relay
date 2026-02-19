@@ -49,9 +49,7 @@ export function buildApp() {
 	});
 
 	// board routes
-	app.register(boardRoutes, {
-		prefix: "/workspaces/:workspaceId/boards",
-	});
+	app.register(boardRoutes);
 
 	app.register(columnRoutes, {
 		prefix: "/boards/:boardId/columns",
