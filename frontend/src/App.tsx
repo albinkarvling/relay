@@ -18,6 +18,10 @@ export const router = createBrowserRouter([
 				element: <LoginPage />,
 			},
 			{
+				path: "/workspaces",
+				element: <AppLayout />,
+			},
+			{
 				path: "/workspaces/:workspaceId",
 				element: <AppLayout />,
 				children: [
