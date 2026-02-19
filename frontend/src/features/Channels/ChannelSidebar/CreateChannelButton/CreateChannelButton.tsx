@@ -1,9 +1,11 @@
 import { useModal } from "@/contexts/ModalProvider/ModalProvider";
+import { useParams } from "react-router-dom";
 
 export function CreateChannelButton() {
+	const { workspaceId } = useParams();
 	const { openModal } = useModal();
 
-	const handleCreateChannelClick = () => openModal("createChannel");
+	const handleCreateChannelClick = () => openModal("CREATE_CHANNEL", { workspaceId });
 
 	return (
 		<button

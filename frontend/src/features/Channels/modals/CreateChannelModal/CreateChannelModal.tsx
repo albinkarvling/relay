@@ -2,14 +2,13 @@ import { useCreateChannel } from "@/hooks/channels/useCreateChannel";
 import { Modal } from "@/ui/Modal/Modal";
 import { ModalActions } from "@/ui/Modal/ModalActions/ModalActions";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
 
 type Props = {
 	onClose: () => void;
+	workspaceId?: string;
 };
 
-export function CreateChannelModal({ onClose }: Props) {
-	const { workspaceId } = useParams();
+export function CreateChannelModal({ onClose, workspaceId }: Props) {
 	const { mutateAsync: createChannelAsync, isPending } = useCreateChannel(workspaceId!);
 
 	const [channelName, setChannelName] = useState("");

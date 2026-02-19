@@ -26,6 +26,8 @@
 	--sidebar-width: 260px;
 	--modal-width: 450px;
 	--modal-max-height: 700px;
+
+	--column-width: 200px;
 }
 
 a {

@@ -1,18 +1,14 @@
-import { useModal } from "@/contexts/ModalProvider/ModalProvider";
 import { useCreateBoard } from "@/hooks/boards/useCreateBoard";
 import { Modal } from "@/ui/Modal/Modal";
 import { ModalActions } from "@/ui/Modal/ModalActions/ModalActions";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
 
 type Props = {
 	onClose: () => void;
+	workspaceId?: string;
 };
 
-export function CreateBoardModal({ onClose }: Props) {
-	const { workspaceId } = useParams();
-	const { closeModal } = useModal();
-
+export function CreateBoardModal({ onClose, workspaceId }: Props) {
 	const { mutateAsync: createBoardAsync, isPending } = useCreateBoard(workspaceId!);
 
 	const [boardName, setBoardName] = useState("");
@@ -28,7 +24,7 @@ export function CreateBoardModal({ onClose }: Props) {
 				name: boardName,
 				description: boardDescription,
 			});
-			closeModal();
+			onClose();
 		} catch (error) {
 			console.error("Failed to create board", error);
 		}

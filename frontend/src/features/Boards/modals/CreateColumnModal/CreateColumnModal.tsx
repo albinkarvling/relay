@@ -3,14 +3,13 @@ import { useGetColumns } from "@/hooks/columns/useGetColumns";
 import { Modal } from "@/ui/Modal/Modal";
 import { ModalActions } from "@/ui/Modal/ModalActions/ModalActions";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
 
 type Props = {
 	onClose: () => void;
+	boardId?: string;
 };
 
-export function CreateColumnModal({ onClose }: Props) {
-	const { boardId } = useParams();
+export function CreateColumnModal({ boardId, onClose }: Props) {
 	const { mutateAsync: createColumnAsync, isPending } = useCreateColumn(boardId!);
 	const { data: columns } = useGetColumns(boardId!);
 

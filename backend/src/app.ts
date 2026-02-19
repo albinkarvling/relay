@@ -10,6 +10,7 @@ import { messageRoutes } from "./features/messages/messageRoutes.js";
 import { userRoutes } from "./features/users/userRoutes.js";
 import { memberRoutes } from "./features/members/memberRoutes.js";
 import { columnRoutes } from "./features/columns/columnRoutes.js";
+import { taskRoutes } from "./features/tasks/taskRoutes.js";
 
 export function buildApp() {
 	const app = Fastify({
@@ -47,12 +48,17 @@ export function buildApp() {
 		prefix: "/workspaces/:workspaceId/members",
 	});
 
+	// board routes
 	app.register(boardRoutes, {
 		prefix: "/workspaces/:workspaceId/boards",
 	});
 
 	app.register(columnRoutes, {
 		prefix: "/boards/:boardId/columns",
+	});
+
+	app.register(taskRoutes, {
+		prefix: "/columns/:columnId/tasks",
 	});
 
 	app.register(websocketRoutes);
